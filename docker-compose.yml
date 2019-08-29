@@ -1,0 +1,43 @@
+version: "3"
+volumes:
+  var:
+  db:
+
+services:
+  proxy:
+    image: vaem/proxy
+    ports:
+      - 5000:80
+
+  app:
+    image: vaem/asset-manager
+    env_file: .env
+    environment:
+      MONGO_URL: mongodb://mongo:27017/asset-manager
+      NODE_ENV: production
+      BASE: "${BASE}/api"
+    volumes:
+      - var:/app/var
+
+  encoder:
+    image: vaem/encoder
+    environment:
+      ASSETMANAGER_URL: http://app:5000
+
+  mongo:
+    image: mongo:4.2.0
+    volumes:
+      - db:/data/db
+
+  admin_ui:
+    image: vaem/admin-ui
+    environment:
+      VUE_APP_API_URL: "${BASE}/api"
+      VUE_APP_EMBED_URL: "${BASE}/embed"
+      BASE_URL: "/admin/"
+
+  embed_ui:
+    image: vaem/embed-ui
+    environment:
+      VUE_APP_API_URL: "${BASE}/api"
+      BASE_URL: "/embed/"
