@@ -24,11 +24,6 @@ services:
     environment:
       ASSETMANAGER_URL: http://app:5000
 
-  mongo:
-    image: mongo:4.2.0
-    volumes:
-      - db:/data/db
-
   admin_ui:
     image: vaem/admin-ui
     environment:
@@ -41,3 +36,8 @@ services:
     environment:
       VUE_APP_API_URL: "${BASE}/api"
       BASE_URL: "/embed/"
+
+  mongo:
+    image: mongo:4.2.0
+    volumes:
+      - db:/data/db
