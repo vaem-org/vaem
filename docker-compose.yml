@@ -37,6 +37,7 @@ services:
     environment:
       VUE_APP_API_URL: "${BASE}/api"
       BASE_URL: "/embed/"
+      WEBPACK_BASE_URL: "embed"
 
   mongo:
     image: mongo:4.2.0
