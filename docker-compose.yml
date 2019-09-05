@@ -22,7 +22,7 @@ services:
   encoder:
     image: vaem/encoder
     environment:
-      ASSETMANAGER_URL: http://app:5000
+      ASSETMANAGER_URL: "http://${ENCODER_TOKEN}@app:5000"
 
   admin_ui:
     image: vaem/admin-ui
