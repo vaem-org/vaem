@@ -8,6 +8,10 @@ services:
     image: vaem/proxy
     ports:
       - 8000:80
+    depends_on:
+      - app
+      - admin_ui
+      - embed_ui
 
   app:
     image: vaem/asset-manager
@@ -18,6 +22,8 @@ services:
       BASE: "${BASE}/api"
     volumes:
       - var:/app/var
+    depends_on:
+      - mongo
 
   encoder:
     image: vaem/encoder
