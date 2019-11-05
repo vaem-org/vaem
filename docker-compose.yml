@@ -6,6 +6,8 @@ volumes:
 services:
   proxy:
     image: vaem/proxy
+    volumes:
+      - var:/app/var
     ports:
       - 8000:80
     depends_on:
@@ -20,6 +22,7 @@ services:
       MONGO_URL: mongodb://mongo:27017/asset-manager
       NODE_ENV: production
       BASE: "${BASE}/api"
+      SOURCE_ACCEL_REDIRECT: /uploads
     volumes:
       - var:/app/var
     depends_on:
