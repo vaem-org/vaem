@@ -39,14 +39,14 @@ services:
       VUE_APP_API_URL: "${BASE}/api"
       VUE_APP_EMBED_URL: "${BASE}/embed"
       BASE_URL: "/admin/"
-      WEBPACK_BASE_URL: "admin"
+      WEBPACK_BASE_URL: "/admin"
 
   embed_ui:
     image: vaem/embed-ui
     environment:
       VUE_APP_API_URL: "${BASE}/api"
       BASE_URL: "/embed/"
-      WEBPACK_BASE_URL: "embed"
+      WEBPACK_BASE_URL: "/embed"
 
   mongo:
     image: mongo:4.2.0
