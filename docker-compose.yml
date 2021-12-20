@@ -1,54 +1,41 @@
 version: "3"
 volumes:
-  var:
   db:
+  var:
 
 services:
-  proxy:
-    image: vaem/proxy
-    volumes:
-      - var:/app/var
-    ports:
-      - 8000:80
+  asset-manager:
     depends_on:
-      - app
-      - admin_ui
-      - embed_ui
-
-  app:
+      - mongo
     image: vaem/asset-manager
     env_file: .env
     environment:
-      MONGO_URL: mongodb://mongo:27017/asset-manager
-      NODE_ENV: production
-      BASE: "${BASE}/api"
-      SOURCE_ACCEL_REDIRECT: /uploads
+      - MONGO_URL=mongodb://mongo/app
+      - "AUTH_URL=google://${GOOGLE_CLIENT_ID}:${GOOGLE_SECRET}@${GOOGLE_HD}"
+      - "BASE=${BASE}/api"
     volumes:
       - var:/app/var
+
+  mongo:
+    image: mongo:5.0.4
+    volumes:
+      - db:/data/db
+
+  web:
     depends_on:
-      - mongo
+      - asset-manager
+    build:
+      context: web
+      args:
+        - "API_URL=${BASE}/api"
+        - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
+        - "EMBED_URL=${BASE}/embed"
+    ports:
+      - "8080:8080"
 
   encoder:
     image: vaem/encoder
     environment:
-      ASSETMANAGER_URL: "http://${ENCODER_TOKEN}@app:5000"
-
-  admin_ui:
-    image: vaem/admin-ui
-    environment:
-      VUE_APP_API_URL: "${BASE}/api"
-      VUE_APP_EMBED_URL: "${BASE}/embed"
-      BASE_URL: "/admin/"
-      WEBPACK_BASE_URL: "/admin"
-
-  embed_ui:
-    image: vaem/embed-ui
-    environment:
-      VUE_APP_API_URL: "${BASE}/api"
-      BASE_URL: "/embed/"
-      WEBPACK_BASE_URL: "/embed"
-
-  mongo:
-    image: mongo:4.2.0
+      - ASSETMANAGER_URL=http://asset-manager:5000
     volumes:
-      - db:/data/db
+      - var:/app/var
