@@ -29,6 +29,7 @@ services:
       args:
         - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
         - "EMBED_URL=${BASE}/embed"
+        - "API_URL=${BASE}/api"
     ports:
       - "8080:8080"
 

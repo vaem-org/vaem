@@ -4,15 +4,16 @@ RUN apk add --no-cache git
 
 RUN mkdir /build && cd /build && git clone https://github.com/vaem-org/admin-ui
 
-ARG EMBED_URL
-ARG GOOGLE_CLIENT_ID
-
 WORKDIR /build/admin-ui
 
-ENV BASE=/admin/
-ENV API_URL=/api
+RUN yarn
 
-RUN yarn && yarn generate
+ENV BASE=/admin/
+ARG EMBED_URL
+ARG GOOGLE_CLIENT_ID
+ARG API_URL
+
+RUN yarn generate
 
 RUN cd /build && git clone https://github.com/vaem-org/embed-ui
 
