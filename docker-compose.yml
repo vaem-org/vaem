@@ -27,7 +27,6 @@ services:
     build:
       context: web
       args:
-        - "API_URL=${BASE}/api"
         - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
         - "EMBED_URL=${BASE}/embed"
     ports:
