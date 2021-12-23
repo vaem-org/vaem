@@ -1,25 +1,23 @@
 FROM node:16.13.1-alpine as build
 
-RUN apk add --no-cache git
-
-RUN mkdir /build && cd /build && git clone https://github.com/vaem-org/admin-ui
-
-WORKDIR /build/admin-ui
-
-RUN yarn
-
 ENV BASE=/admin/
 ARG EMBED_URL
 ARG GOOGLE_CLIENT_ID
 ARG API_URL
 
-RUN yarn generate
-
-RUN cd /build && git clone https://github.com/vaem-org/embed-ui
+RUN mkdir -p /build/embed-ui && \
+    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/7a4cf75d2770e18587126e19e1f6514cdadb4cb0' | \
+    tar zxv -C /build/embed-ui --strip-components=1
 
 WORKDIR /build/embed-ui
 
-ENV BASE=/embed/
+RUN yarn && yarn generate
+
+RUN mkdir -p /build/admin-ui && \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/c14beb0e5101c525e923878da766707be16c3213' | \
+    tar zxv -C /build/admin-ui --strip-components=1
+
+WORKDIR /build/admin-ui
 
 RUN yarn && yarn generate
 
