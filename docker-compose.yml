@@ -12,7 +12,7 @@ services:
     environment:
       - MONGO_URL=mongodb://mongo/app
       - "AUTH_URL=google://${GOOGLE_CLIENT_ID}:${GOOGLE_SECRET}@${GOOGLE_HD}"
-      - "BASE=${BASE}/api"
+      - "BASE=/api"
     volumes:
       - var:/app/var
 
@@ -24,12 +24,11 @@ services:
   web:
     depends_on:
       - asset-manager
-    build:
-      context: web
-      args:
-        - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
-        - "EMBED_URL=${BASE}/embed"
-        - "API_URL=${BASE}/api"
+    image: vaem/web
+    environment:
+      - "API_URL=${BASE}/api"
+      - "EMBED_URL=${BASE}/embed"
+      - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
     ports:
       - "8080:8080"
 

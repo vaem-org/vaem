@@ -1,8 +1,8 @@
 FROM node:16.13.1-alpine as build
 
-ARG EMBED_URL
-ARG GOOGLE_CLIENT_ID
-ARG API_URL
+ENV API_URL='${API_URL}'
+ENV EMBED_URL='${EMBED_URL}'
+ENV GOOGLE_CLIENT_ID='${GOOGLE_CLIENT_ID}'
 
 RUN mkdir -p /build/embed-ui && \
     wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/7a4cf75d2770e18587126e19e1f6514cdadb4cb0' | \
@@ -28,3 +28,5 @@ ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build /build/admin-ui/dist /usr/share/nginx/html/admin
 COPY --from=build /build/embed-ui/dist /usr/share/nginx/html/embed
+
+ADD ./update-variables.sh /docker-entrypoint.d/update-variables.sh
