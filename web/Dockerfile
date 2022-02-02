@@ -1,6 +1,5 @@
 FROM node:16.13.1-alpine as build
 
-ENV BASE=/admin/
 ARG EMBED_URL
 ARG GOOGLE_CLIENT_ID
 ARG API_URL
@@ -11,14 +10,16 @@ RUN mkdir -p /build/embed-ui && \
 
 WORKDIR /build/embed-ui
 
+ENV BASE=/embed/
 RUN yarn && yarn generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/cd1f54b9a1de28f97791bdb8d70325c452e98059' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/b3cf54cfab0a7eb66f3a1cbc933da86335931b6e' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
 
+ENV BASE=/admin/
 RUN yarn && yarn generate
 
 FROM nginx:1.21.4-alpine
