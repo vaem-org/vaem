@@ -12,7 +12,6 @@ services:
     environment:
       - MONGO_URL=mongodb://mongo/app
       - "AUTH_URL=google://${GOOGLE_CLIENT_ID}:${GOOGLE_SECRET}@${GOOGLE_HD}"
-      - "BASE=/api"
     volumes:
       - var:/app/var
 
