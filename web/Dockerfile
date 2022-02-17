@@ -14,7 +14,7 @@ ENV BASE=/embed/
 RUN yarn && yarn generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/41515fec84e2fb300af5297130ed98623cb2c483' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/bcea988eb095a4e212a2c019d90f59871bf32083' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
