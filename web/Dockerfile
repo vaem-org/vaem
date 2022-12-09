@@ -5,7 +5,7 @@ ENV EMBED_URL='${EMBED_URL}'
 ENV GOOGLE_CLIENT_ID='${GOOGLE_CLIENT_ID}'
 
 RUN mkdir -p /build/embed-ui && \
-    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/7a4cf75d2770e18587126e19e1f6514cdadb4cb0' | \
+    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/efced9133c1c1a17536115d2daf0d5769b11f16c' | \
     tar zxv -C /build/embed-ui --strip-components=1
 
 WORKDIR /build/embed-ui
@@ -14,7 +14,7 @@ ENV BASE=/embed/
 RUN yarn && yarn generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/5e1dbed08bffc29721e356a530320150e8296703' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/f82c2753863ee36eb6b1947170990f0490eb2a58' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
