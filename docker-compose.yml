@@ -13,6 +13,7 @@ services:
       - MONGO_URL=mongodb://mongo/app
       - "AUTH_URL=google://${GOOGLE_CLIENT_ID}:${GOOGLE_SECRET}@${GOOGLE_HD}"
       - "BASE=${BASE}/api"
+      - "SUBTITLEEDIT_API_URL=http://vaem@subtitleedit:5000"
     volumes:
       - var:/app/var
 
@@ -38,3 +39,8 @@ services:
       - ASSETMANAGER_URL=http://asset-manager:5000
     volumes:
       - var:/app/var
+
+  subtitleedit:
+    image: vaem/subtitleedit-api
+    environment:
+      - API_KEY=vaem
