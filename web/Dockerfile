@@ -5,7 +5,7 @@ ENV EMBED_URL='${EMBED_URL}'
 ENV GOOGLE_CLIENT_ID='${GOOGLE_CLIENT_ID}'
 
 RUN mkdir -p /build/embed-ui && \
-    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/efced9133c1c1a17536115d2daf0d5769b11f16c' | \
+    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/241a07a2583d7c2efb5dc887483c5ea3a1409010' | \
     tar zxv -C /build/embed-ui --strip-components=1
 
 WORKDIR /build/embed-ui
