@@ -1,11 +1,11 @@
-FROM node:16.13.1-alpine as build
+FROM node:20.11.1-alpine as build
 
 ENV API_URL='${API_URL}'
 ENV EMBED_URL='${EMBED_URL}'
 ENV GOOGLE_CLIENT_ID='${GOOGLE_CLIENT_ID}'
 
 RUN mkdir -p /build/embed-ui && \
-    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/241a07a2583d7c2efb5dc887483c5ea3a1409010' | \
+    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/797158c8c285e0a3149e97d4d32f5925a4da722c' | \
     tar zxv -C /build/embed-ui --strip-components=1
 
 WORKDIR /build/embed-ui
@@ -14,7 +14,7 @@ ENV BASE=/embed/
 RUN yarn && yarn generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/cae628d5a67357a106d298e98aa778022dbbba23' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/906921be50a5a703a24a624a5faeb49add144cea' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
@@ -22,7 +22,7 @@ WORKDIR /build/admin-ui
 ENV BASE=/admin/
 RUN yarn && yarn generate
 
-FROM nginx:1.21.4-alpine
+FROM nginx:1.25.4-alpine
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
