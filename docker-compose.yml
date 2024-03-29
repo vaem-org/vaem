@@ -4,6 +4,8 @@ volumes:
 
 services:
   asset-manager:
+    links:
+      - mongo
     depends_on:
       - mongo
     image: vaem/asset-manager
