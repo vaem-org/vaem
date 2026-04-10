@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-find /usr/share/nginx/html -type f \( -name "*.js" -o -name "*.html" \) -exec sed -i "s|\${API_URL}|${API_URL}|g;s|\${EMBED_URL}|${EMBED_URL}|g;s|\${GOOGLE_CLIENT_ID}|${GOOGLE_CLIENT_ID}|g" {} \;
+find /usr/share/nginx/html -type f \( -name "*.js" -o -name "*.html" \) -exec sed -i "s|\${NUXT_PUBLIC_API_URL}|${NUXT_PUBLIC_API_URL}|g;s|\${NUXT_PUBLIC_EMBED_URL}|${NUXT_PUBLIC_EMBED_URL}|g" {} \;

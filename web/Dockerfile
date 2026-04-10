@@ -1,28 +1,29 @@
-FROM node:20.11.1-alpine as build
+FROM node:24.14.1-alpine AS build
 
-ENV API_URL='${API_URL}'
-ENV EMBED_URL='${EMBED_URL}'
-ENV GOOGLE_CLIENT_ID='${GOOGLE_CLIENT_ID}'
+RUN corepack enable
+
+ENV NUXT_PUBLIC_API_URL='${NUXT_PUBLIC_API_URL}'
+ENV NUXT_PUBLIC_EMBED_URL='${NUXT_PUBLIC_EMBED_URL}'
 
 RUN mkdir -p /build/embed-ui && \
-    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/797158c8c285e0a3149e97d4d32f5925a4da722c' | \
+    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/a5438205f1556fd4a4d11a74c7d38dd186696ccd' | \
     tar zxv -C /build/embed-ui --strip-components=1
 
 WORKDIR /build/embed-ui
 
-ENV BASE=/embed/
-RUN yarn && yarn generate
+ENV NUXT_APP_BASE_URL=/embed/
+RUN pnpm install && pnpm generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/83f2c4ded65592409c44fa244d66139ae1940be7' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/4ad055f278a7e35d912d46bdb89eea2f6d6f2f68' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
 
-ENV BASE=/admin/
-RUN yarn && yarn generate
+ENV NUXT_APP_BASE_URL=/admin/
+RUN pnpm install && pnpm generate
 
-FROM nginx:1.25.4-alpine
+FROM nginx:1.29.8-alpine
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 

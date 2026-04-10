@@ -9,6 +9,7 @@ services:
     depends_on:
       - mongo
     image: vaem/asset-manager
+    platform: linux/amd64
     env_file: .env
     environment:
       - MONGO_URL=mongodb://mongo/app
@@ -26,22 +27,25 @@ services:
   web:
     depends_on:
       - asset-manager
+    platform: linux/amd64
     image: vaem/web
     environment:
-      - "API_URL=${BASE}/api"
-      - "EMBED_URL=${BASE}/embed"
+      - "NUXT_PUBLIC_API_URL=${BASE}/api/"
+      - "NUXT_PUBLIC_EMBED_URL=${BASE}/embed/"
       - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
     ports:
-      - "8080:8080"
+      - "3000:8080"
 
   encoder:
     image: vaem/encoder
+    platform: linux/amd64
     environment:
       - ASSETMANAGER_URL=http://asset-manager:5000
     volumes:
       - var:/app/var
 
   subtitleedit:
+    platform: linux/amd64
     image: vaem/subtitleedit-api
     environment:
       - API_KEY=vaem
