@@ -33,7 +33,7 @@ services:
       - "NUXT_PUBLIC_API_URL=${BASE}/api/"
       - "NUXT_PUBLIC_EMBED_URL=${BASE}/embed/"
     ports:
-      - "3000:8080"
+      - "${PORT:-3000}:8080"
 
   encoder:
     image: vaem/encoder
