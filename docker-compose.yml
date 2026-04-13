@@ -32,7 +32,6 @@ services:
     environment:
       - "NUXT_PUBLIC_API_URL=${BASE}/api/"
       - "NUXT_PUBLIC_EMBED_URL=${BASE}/embed/"
-      - "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}"
     ports:
       - "3000:8080"
 

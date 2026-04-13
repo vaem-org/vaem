@@ -15,7 +15,7 @@ ENV NUXT_APP_BASE_URL=/embed/
 RUN pnpm install && pnpm generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/4ad055f278a7e35d912d46bdb89eea2f6d6f2f68' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/1bb8477f5e42194d1b30154d7b63608cbf832a50' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
