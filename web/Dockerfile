@@ -6,7 +6,7 @@ ENV NUXT_PUBLIC_API_URL='${NUXT_PUBLIC_API_URL}'
 ENV NUXT_PUBLIC_EMBED_URL='${NUXT_PUBLIC_EMBED_URL}'
 
 RUN mkdir -p /build/embed-ui && \
-    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/9683a5fed31d9867332e4837bcaca5d68219442a' | \
+    wget -q -O - 'https://github.com/vaem-org/embed-ui/tarball/f8c9eb48641195b772c18d668e562531e458efc8' | \
     tar zxv -C /build/embed-ui --strip-components=1
 
 WORKDIR /build/embed-ui
@@ -15,7 +15,7 @@ ENV NUXT_APP_BASE_URL=/embed/
 RUN pnpm install && pnpm generate
 
 RUN mkdir -p /build/admin-ui && \
-    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/722d5376b6969a07a1a3ae41319bfd6f66eedca9' | \
+    wget -q -O - 'https://github.com/vaem-org/admin-ui/tarball/9e2f08bfa54966aab3ee5e393c1a0d8c78de4784' | \
     tar zxv -C /build/admin-ui --strip-components=1
 
 WORKDIR /build/admin-ui
