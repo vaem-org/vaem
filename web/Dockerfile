@@ -23,7 +23,7 @@ WORKDIR /build/admin-ui
 ENV NUXT_APP_BASE_URL=/admin/
 
 RUN pnpm install && pnpm generate
-FROM nginx:1.29.8-alpine
+FROM nginx:1.31.9-alpine
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
